@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pandas as pd
 
 st.title("Customer Churn Prediction Dashboard")
 
@@ -30,6 +31,6 @@ if st.button("Predict Churn"):
         "IsActiveMember": is_active_member,
         "EstimatedSalary": estimated_salary
     }
-    response = requests.post("http://127.0.0.1:5000/predict", json=data)
+    prediction = model.predict(input_df)[0]
     result = response.json()
     st.write("Prediction:", "Exited" if result["Exited"] == 1 else "Retained")
