@@ -1,6 +1,9 @@
 import streamlit as st
-import requests
 import pandas as pd
+import joblib
+
+# Load model
+model = joblib.load("models/churn_model.pkl")   # adjust filename if needed
 
 st.title("Customer Churn Prediction Dashboard")
 
@@ -15,12 +18,11 @@ has_credit_card = st.selectbox("Has Credit Card", [0, 1])
 is_active_member = st.selectbox("Is Active Member", [0, 1])
 estimated_salary = st.number_input("Estimated Salary", value=60000)
 
-# Convert gender to numeric (same as training)
-gender_num = 1 if gender == "Male" else 0
-
-# Prediction button
-if st.button("Predict Churn"):
-    data = {
+if st.button("Predict"):
+    gender_num = 1 if gender == "Male" else 0
+    
+    # ✅ Create DataFrame properly
+    input_df = pd.DataFrame([{
         "CustomerID": customer_id,
         "Gender": gender_num,
         "Age": age,
@@ -30,7 +32,8 @@ if st.button("Predict Churn"):
         "HasCreditCard": has_credit_card,
         "IsActiveMember": is_active_member,
         "EstimatedSalary": estimated_salary
-    }
+    }])
+    
+    # ✅ Direct prediction (no response.json)
     prediction = model.predict(input_df)[0]
-    result = response.json()
-    st.write("Prediction:", "Exited" if result["Exited"] == 1 else "Retained")
+    st.write("Prediction:", "Exited" if prediction == 1 else "Retained")
