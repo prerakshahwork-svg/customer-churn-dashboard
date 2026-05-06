@@ -4,7 +4,8 @@ import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from ydata_profiling import ProfileReport
+# Profiling temporarily disabled
+# from ydata_profiling import ProfileReport
 
 # -----------------------------
 # Load dataset and model
@@ -18,11 +19,14 @@ model = joblib.load("models/churn_model.pkl")
 st.title("Customer Churn Prediction Dashboard")
 
 # -----------------------------
-# Automated EDA Section
+# Automated EDA Section (commented out)
 # -----------------------------
 st.header("Automated EDA Report")
-profile = ProfileReport(df, title="Customer Churn EDA", explorative=True)
-st.components.v1.html(profile.to_html(), height=800, scrolling=True)
+
+# profile = ProfileReport(df, title="Customer Churn EDA", explorative=True)
+# st.components.v1.html(profile.to_html(), height=800, scrolling=True)
+
+st.info("Profiling temporarily disabled due to environment issues.")
 
 # -----------------------------
 # Custom EDA Visuals
