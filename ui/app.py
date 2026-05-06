@@ -92,3 +92,4 @@ sns.countplot(x="Exited", data=df, ax=ax)
 ax.set_xticklabels(["Retained", "Exited"])
 st.pyplot(fig)
 
+
